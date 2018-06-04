@@ -24,7 +24,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -129,6 +131,8 @@ public class Menu implements ActionListener, FocusListener{
                     Functions.USDCoin(coin1, coin2, coinamount1, coinamount2);
                 } catch (IOException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if (!coin1.equals("USD") && coin2.equals("USD")){
@@ -136,12 +140,16 @@ public class Menu implements ActionListener, FocusListener{
                     Functions.CoinUSD(coin1, coin2, coinamount1, coinamount2);
                 } catch (IOException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else{
                 try {
                     Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2);
                 } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

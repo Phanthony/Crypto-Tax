@@ -1,15 +1,129 @@
-Current 0
-
-
 //
-2018 5 28
-$400 to 0.7 ETH
-ETH: 527.235
-available 0.7
+2018 5 31
+$100 to 300 BAT
+BAT: 0.280789
 //
-2018 5 28
-400 TPAY to 0.7 ETH
-TPAY: 0.543673
-ETH: 525.991
-available 0.7
+2018 5 31
+150 BAT to $50
+BAT: 0.280789
+Gain: 0.0
+//
+2018 5 31
+150 BAT to $50
+BAT: 0.280789
+Gain: 0.0
+//
+2018 5 31
+$100 to 5000 BAT
+BAT: 0.280789
+//
+2018 5 31
+$100 to 4500 BAT
+BAT: 0.280789
+//
+2018 5 31
+2000 BAT to $122
+BAT: 0.280789
+Gain: 0.0
+//
+2018 5 31
+1000 BAT to $122
+BAT: 0.280789
+Gain: 0.0
+//
+2018 5 31
+3000 BAT to $122
+BAT: 0.280789
+Gain: 0.0
+Gain: 0.0
+//
+2018 5 31
+10 BAT to $122
+BAT: 0.280789
+Gain: 0.0
+//
+2018 6 04
+30 BAT to $4214
+BAT: 0.283135
+Gain: 0.0049266000000001324
+//
+2018 6 04
+530 BAT to $4214
+BAT: 0.283135
+Gain: 0.08703660000000014
+//
+2018 6 04
+Transaction: 3
+234 BAT to $4213
+BAT: 0.283034
+Gain: 0.036773099999999774
+//
+2018 6 04
+Transaction: 3
+3 BAT to $412
+BAT: 0.283034
+Gain: 0.0067349999999999355
+//
+2018 6 04
+Transaction: 3
+$309 to 1234 MIOTA
+MIOTA: 1.72553
+//
+2018 6 04
+Transaction: 4
+$30 to 1234 MIOTA
+MIOTA: 1.72553
+//
+2018 6 04
+Transaction: 5
+$30 to 3 ICX
+ICX: 2.64544
+//
+2018 6 04
+Transaction: 6
+$30 to 34 ICX
+ICX: 2.64544
+//
+2018 6 04
+Transaction: 7
+10 ICX to $23
+ICX: 2.64544
+Gain from transation 5: 0.0
+Gain from transaction 6: 0.0
+//
+2018 6 04
+Transaction: 8
+39 BAT to 124 ICX
+BAT: 0.279157
+ICX: 2.61094
+Gain from transaction 2: -0.06364800000000059
+//
+2018 6 04
+Transaction: 9
+32 ICX to 1242 BAT
+ICX: 2.61094
+BAT: 0.279157
+Gain from transation 6: -0.9314999999999998
+Gain from transaction 8: 0.0
+//
+2018 6 04
+Transaction: 10
+3 ICX to 1242 BAT
+ICX: 2.61094
+BAT: 0.279157
+Gain from transaction 8: 0.0
+//
+2018 6 04
+Transaction: 11
+23 ICX to 33 BAT
+ICX: 2.62467
+BAT: 0.279415
+Gain from transaction 8: 0.3157900000000069
+//
+2018 6 04
+Transaction: 12
+23.089 ICX to 33.789 BAT
+ICX: 2.62492
+BAT: 0.27923
+Gain from transaction 8: 0.3227842200000026
 //
