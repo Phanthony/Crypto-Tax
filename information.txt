@@ -127,3 +127,91 @@ ICX: 2.62492
 BAT: 0.27923
 Gain from transaction 8: 0.3227842200000026
 //
+2018 6 05
+Transaction: 13
+$3 to null BAT
+BAT: 0.269896
+//
+2018 6 05
+Transaction: 13
+$3 to 34 BAT
+BAT: 0.269896
+//
+2018 6 05
+Transaction: 14
+23 BAT to $34
+BAT: 0.273204
+Gain from transaction 2: -0.17445500000000003
+//
+2018 6 05
+Transaction: 15
+23 BAT to $324
+BAT: 0.273204
+Gain from transaction 2: -0.17445500000000003
+//
+2018 6 05
+Transaction: 16
+23 BAT to $324
+BAT: 0.273204
+Gain from transaction 2: -0.17445500000000003
+//
+2018 6 05
+Transaction: 17
+$23 to 323 BAT
+BAT: 0.274745
+//
+2018 6 05
+Transaction: 18
+$23 to 323 BAT
+BAT: 0.274745
+//
+2018 6 05
+Transaction: 19
+23 ICX to 33 ETH
+ICX: 2.70866
+ETH: 607.394
+Gain from transaction 8: 2.247560000000007
+//
+2018 6 05
+Transaction: 20
+23 ICX to 33 ETH
+ICX: 2.70866
+ETH: 607.394
+Gain from transaction 8: 2.247560000000007
+//
+2018 6 05
+Transaction: 21
+23 ICX to 33 ETH
+ICX: 2.70866
+ETH: 607.394
+Gain from transaction 8: 2.247560000000007
+//
+2018 6 05
+Transaction: 22
+$23 to 334 ETH
+ETH: 606.398
+//
+2018 6 05
+Transaction: 23
+$23 to 334 BAT
+BAT: 0.274447
+//
+2018 6 05
+Transaction: 24
+$ to  BAT
+BAT: 0.274447
+//
+2018 6 05
+Transaction: 24
+23 ABT to 23 ABT
+ABT: 0.0608721
+ABT: 0.0608721
+Gain from transaction 24: 0.0
+//
+2018 6 05
+Transaction: 25
+23 AE to 33 ABT
+AE: 3.35045
+ABT: 0.125399
+Gain from transaction 24: 0.29876999999999043
+//

@@ -3,12 +3,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,14 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
  *
@@ -45,11 +38,13 @@ public class Menu implements ActionListener, FocusListener{
     private JTextField amount2;
     private JButton transaction;
     
-    private String coin1;
-    private String coin2;
+    private String coin1 = "ABT";
+    private String coin2 = "ABT";
     
     private String coinamount1;
     private String  coinamount2;
+    
+    private JFrame MainFrame;
     
     public void start() throws IOException{
         String sURL = "https://api.coinmarketcap.com/v2/ticker/?limit=100&structure=array";      
@@ -83,7 +78,7 @@ public class Menu implements ActionListener, FocusListener{
         String[] coinarray = coinList.toArray(new String[0]);
         Arrays.sort(coinarray);
         
-        JFrame MainFrame = new JFrame ("Crypto Taxes");
+        MainFrame = new JFrame ("Crypto Taxes");
         MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MainFrame.getContentPane().setLayout(new GridLayout(2, 3));
         
@@ -106,6 +101,7 @@ public class Menu implements ActionListener, FocusListener{
         MainFrame.add(transaction);
         MainFrame.add(amount2);
         MainFrame.setSize(500, 150);
+        MainFrame.setLocationRelativeTo(null);
         MainFrame.setVisible(true);
         
         coinListBox1.addActionListener(this);
@@ -114,6 +110,34 @@ public class Menu implements ActionListener, FocusListener{
         amount2.addFocusListener(this);
         transaction.addActionListener(this);
         
+    }
+    
+    public JFrame getFrame(){
+        return MainFrame;
+    }
+    
+    public void popUp(){
+        JFrame doneBox = new JFrame("");
+        JLabel doneLabel = new JLabel("Added", JLabel.CENTER);
+        doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        
+        doneBox.add(doneLabel);
+        doneBox.setSize(200, 100);
+        doneBox.setLocationRelativeTo(MainFrame);
+        doneBox.setAlwaysOnTop(true);
+        doneBox.setVisible(true);
+    }
+    
+    public void popUpErrorNull(){
+        JFrame doneBox = new JFrame("");
+        JLabel doneLabel = new JLabel("Error: Enter a number", JLabel.CENTER);
+        doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        
+        doneBox.add(doneLabel);
+        doneBox.setSize(250, 100);
+        doneBox.setLocationRelativeTo(MainFrame);
+        doneBox.setAlwaysOnTop(true);
+        doneBox.setVisible(true);
     }
     
     @Override
@@ -126,34 +150,46 @@ public class Menu implements ActionListener, FocusListener{
         }
 
         if (action.getSource() == transaction){
-            if (coin1.equals("USD") && !coin2.equals("USD")){
-                try {
-                    Functions.USDCoin(coin1, coin2, coinamount1, coinamount2);
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            if ((coinamount1 !=  null ) && (coinamount2 != null)){
+                if(!coinamount1.isEmpty() && !coinamount2.isEmpty()){
+                    if (coin1.equals("USD") && !coin2.equals("USD")){
+                        try {
+                            if(Functions.USDCoin(coin1, coin2, coinamount1, coinamount2) == true){
+                                popUp();
+                            }
+                        } catch (IOException | ClassNotFoundException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else if (!coin1.equals("USD") && coin2.equals("USD")){
+                        try {
+                            if(Functions.CoinUSD(coin1, coin2, coinamount1, coinamount2, MainFrame) == true){
+                                popUp();
+                            }
+                        } catch (IOException | ClassNotFoundException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        try {
+                            System.out.println(coinamount1);
+                            System.out.println(coinamount2);
+                            if(Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2, MainFrame) == true){
+                            popUp();
+                            }
+                        } catch (IOException | ClassNotFoundException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
-            }
-            else if (!coin1.equals("USD") && coin2.equals("USD")){
-                try {
-                    Functions.CoinUSD(coin1, coin2, coinamount1, coinamount2);
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                else{
+                    popUpErrorNull();
                 }
             }
             else{
-                try {
-                    Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2);
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                popUpErrorNull();
             }
-        }    
+        }
     }
     
     @Override

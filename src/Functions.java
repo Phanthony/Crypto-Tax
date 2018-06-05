@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.awt.Font;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +24,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.time.LocalDate;
@@ -34,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Functions{
     
@@ -113,7 +115,7 @@ public class Functions{
         return transaction;
     }
     
-   public static void USDCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
+   public static boolean USDCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
        Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -169,13 +171,12 @@ public class Functions{
        ObjectOutputStream numWriter = new ObjectOutputStream(new FileOutputStream("TransactionNumber"));
        numWriter.writeInt(transNum+1);
        numWriter.close();
-       
-       ObjectInputStream tranOpen = new ObjectInputStream(new FileInputStream("transaction"));
-       System.out.println(tranOpen.readObject());
-       tranOpen.close();
+       return true;
                 }
    
-    public static void CoinCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
+    public static boolean CoinCoin(String coin1, String coin2, String coin1amount, String coin2amount, JFrame frame) throws IOException, MalformedURLException, ClassNotFoundException {
+                            System.out.println(coin1amount);
+                    System.out.println(coin2amount);
         Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -239,6 +240,10 @@ public class Functions{
           
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
+       if (coinMap == null){
+           popUpErrorOwn(frame);
+           return false;
+       }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());     
        
        for (int num : transactionList){
@@ -273,9 +278,10 @@ public class Functions{
        ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
        tranWrite.writeObject(transactions);
        tranWrite.close();
+       return true;
                 }
     
-     public static void CoinUSD(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
+     public static boolean CoinUSD(String coin1, String coin2, String coin1amount, String coin2amount, JFrame frame) throws IOException, MalformedURLException, ClassNotFoundException {
        Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -305,6 +311,10 @@ public class Functions{
        
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
+       if (coinMap == null){
+           popUpErrorOwn(frame);
+           return false;
+       }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
        for (int num : transactionList){
            if (coin1amountd > 0.0){
@@ -338,6 +348,20 @@ public class Functions{
        ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
        tranWrite.writeObject(transactions);
        tranWrite.close();
-       
+       return true;
                 }
+     
+     public static void popUpErrorOwn(JFrame frame){
+        JFrame doneBox = new JFrame("");
+        JLabel doneLabel = new JLabel("Error: You don't own this coin", JLabel.CENTER);
+        doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        
+        doneBox.add(doneLabel);
+        doneBox.setSize(300, 100);
+        doneBox.setLocationRelativeTo(frame);
+        doneBox.setAlwaysOnTop(true);
+        doneBox.setVisible(true);
+    }
 }
+
+
