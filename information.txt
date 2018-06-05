@@ -269,3 +269,8 @@ BAT: 0.278407
 STORM: 0.0333137
 Gain from transaction 2: -0.054786
 //
+2018 6 05
+Transaction: 34
+$20 to 4 C20
+C20: 1.38759
+//

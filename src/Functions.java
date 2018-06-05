@@ -239,11 +239,21 @@ public class Functions{
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
        if (coinMap == null){
-           popUpErrorOwn(frame);
+           popUpErrorOverLimit(frame);
            return false;
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
        Collections.sort(transactionList);
+       
+       Double totalCoins = 0.0;
+       for(int num : transactionList){
+           totalCoins += coinMap.get(num).get("available");
+       }
+       
+       if(Double.parseDouble(coin1amount) > totalCoins){
+           popUpErrorOverLimit(frame);
+           return false;
+       }
        
        for (int num : transactionList){
            if (coin1amountd > 0.0){
@@ -316,6 +326,17 @@ public class Functions{
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
        Collections.sort(transactionList);
+       
+       Double totalCoins = 0.0;
+       for(int num : transactionList){
+           totalCoins += coinMap.get(num).get("available");
+       }
+       
+       if(Double.parseDouble(coin1amount) > totalCoins){
+           popUpErrorOverLimit(frame);
+           return false;
+       }
+       
        for (int num : transactionList){
            if (coin1amountd > 0.0){
                if (coinMap.get(num).get("available") > 0.0){
@@ -362,6 +383,19 @@ public class Functions{
         doneBox.setAlwaysOnTop(true);
         doneBox.setVisible(true);
     }
+     
+     public static void popUpErrorOverLimit(JFrame frame){
+        JFrame doneBox = new JFrame("");
+        JLabel doneLabel = new JLabel("Error: You don't own this much", JLabel.CENTER);
+        doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        
+        doneBox.add(doneLabel);
+        doneBox.setSize(300, 100);
+        doneBox.setLocationRelativeTo(frame);
+        doneBox.setAlwaysOnTop(true);
+        doneBox.setVisible(true);
+     }
+     
 }
 
 
