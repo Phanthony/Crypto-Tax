@@ -32,6 +32,7 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -58,7 +59,6 @@ public class Functions{
         coin100 = rootarr;
         
         coinList = new ArrayList<>();
-        coinList.add("USD");
         for (int x = 0; x < 100; x++){
             coinList.add(rootarr.get(x).getAsJsonObject().get("symbol").getAsString());
         }
@@ -133,12 +133,12 @@ public class Functions{
        
        Double coinprice;
        if(coinList.contains(coin2)){
-           coinprice = (coin100.get(coinList.indexOf(coin2)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin100.get(coinList.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin2 + ": " + coinprice );
            output.newLine();
        }
        else{
-           coinprice = (coin200.get(coinList2.indexOf(coin2)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin200.get(coinList2.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin2 + ": " + coinprice );
            output.newLine();
        }
@@ -175,8 +175,6 @@ public class Functions{
                 }
    
     public static boolean CoinCoin(String coin1, String coin2, String coin1amount, String coin2amount, JFrame frame) throws IOException, MalformedURLException, ClassNotFoundException {
-                            System.out.println(coin1amount);
-                    System.out.println(coin2amount);
         Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -196,23 +194,23 @@ public class Functions{
        Double coin2price;
        
        if(coinList.contains(coin1)){
-           coinprice = (coin100.get(coinList.indexOf(coin1)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin100.get(coinList.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin1 + ": " + coinprice );
            output.newLine();
        }
        else{
-           coinprice = (coin200.get(coinList2.indexOf(coin1)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin200.get(coinList2.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin1 + ": " + coinprice );
            output.newLine();
        }
        
        if(coinList.contains(coin2)){
-           coin2price = (coin100.get(coinList.indexOf(coin2)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coin2price = (coin100.get(coinList.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin2 + ": " + coin2price );
            output.newLine();
        }
        else{
-           coin2price = (coin200.get(coinList2.indexOf(coin2)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coin2price = (coin200.get(coinList2.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin2 + ": " + coin2price );
            output.newLine();
        }
@@ -244,7 +242,8 @@ public class Functions{
            popUpErrorOwn(frame);
            return false;
        }
-       ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());     
+       ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
+       Collections.sort(transactionList);
        
        for (int num : transactionList){
            if (coin1amountd > 0.0){
@@ -299,12 +298,12 @@ public class Functions{
        
        Double coinprice;
        if(coinList.contains(coin1)){
-           coinprice = (coin100.get(coinList.indexOf(coin1)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin100.get(coinList.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin1 + ": " + coinprice );
            output.newLine();
        }
        else{
-           coinprice = (coin200.get(coinList2.indexOf(coin1)-1).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
+           coinprice = (coin200.get(coinList2.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
            output.write(coin1 + ": " + coinprice );
            output.newLine();
        }
@@ -316,6 +315,7 @@ public class Functions{
            return false;
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
+       Collections.sort(transactionList);
        for (int num : transactionList){
            if (coin1amountd > 0.0){
                if (coinMap.get(num).get("available") > 0.0){

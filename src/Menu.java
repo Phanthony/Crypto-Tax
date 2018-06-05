@@ -172,8 +172,6 @@ public class Menu implements ActionListener, FocusListener{
                     }
                     else{
                         try {
-                            System.out.println(coinamount1);
-                            System.out.println(coinamount2);
                             if(Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2, MainFrame) == true){
                             popUp();
                             }

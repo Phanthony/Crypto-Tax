@@ -215,3 +215,57 @@ AE: 3.35045
 ABT: 0.125399
 Gain from transaction 24: 0.29876999999999043
 //
+2018 6 05
+Transaction: 26
+$23 to 444 BTC
+BTC: 7623.06
+//
+2018 6 05
+Transaction: 27
+$23 to 444 SOC
+SOC: 0.0337637
+//
+2018 6 05
+Transaction: 28
+233 BAT to 3 SOC
+BAT: 0.278384
+SOC: 0.173388
+Gain from transaction 17: 0.8478870000000001
+//
+2018 6 05
+Transaction: 29
+233 BAT to 3 SOC
+BAT: 0.278384
+SOC: 0.173388
+Gain from transaction 17: 0.3275100000000002
+Gain from transaction 2: -0.34391500000000264
+//
+2018 6 05
+Transaction: 30
+233 ABT to 3 ADA
+ABT: 0.932009
+ADA: 0.221728
+Gain from transaction 25: 26.61813
+Gain from transaction 26: 2.6135934
+//
+2018 6 05
+Transaction: 31
+233 BAT to 3 ADA
+BAT: 0.278384
+ADA: 0.221728
+Gain from transaction 2: -0.5603650000000044
+//
+2018 6 05
+Transaction: 32
+233 BAT to 3 ADA
+BAT: 0.278384
+ADA: 0.221728
+Gain from transaction 2: -0.5603650000000044
+//
+2018 6 05
+Transaction: 33
+23 BAT to 33 STORM
+BAT: 0.278407
+STORM: 0.0333137
+Gain from transaction 2: -0.054786
+//
