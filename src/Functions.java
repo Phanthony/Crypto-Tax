@@ -425,7 +425,7 @@ public class Functions implements WindowListener, ActionListener{
           
           Font font = new Font("Times New Roman", Font.BOLD, 20);
           
-          JFrame main = new JFrame(coin + " available");
+          JFrame main = new JFrame(coin);
           JPanel container = new JPanel(new GridLayout(0,1));
           
           for(int num : transList){
@@ -446,7 +446,7 @@ public class Functions implements WindowListener, ActionListener{
           main.add(scrollbar);
           
           main.setLocationRelativeTo(frame);
-          main.setSize(300,500);
+          main.setSize(370,500);
           main.setVisible(true);
      }
      
