@@ -239,7 +239,7 @@ public class Functions{
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
        if (coinMap == null){
-           popUpErrorOverLimit(frame);
+           popUpErrorOwn(frame);
            return false;
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
