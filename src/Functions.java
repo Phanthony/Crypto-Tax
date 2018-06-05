@@ -398,6 +398,18 @@ public class Functions implements WindowListener, ActionListener{
           availFrame = new JFrame("Available Coins");
           availFrame.getContentPane().setLayout(new GridLayout(2,1));  
           
+          if (transactions.isEmpty()){
+              JFrame error = new JFrame("Error");
+              JLabel errorL = new JLabel("You don't have any coins", JLabel.CENTER);
+              errorL.setFont(new Font("Times New Roman", Font.BOLD, 20));
+              error.add(errorL);
+              error.setLocationRelativeTo(main);
+              error.setAlwaysOnTop(true);
+              error.setSize(350, 100);
+              error.setVisible(true);
+              return;
+          }
+          
           ArrayList<String> transCoin = new ArrayList<>(transactions.keySet());
           Collections.sort(transCoin);
           transCoin.add(0, "");
