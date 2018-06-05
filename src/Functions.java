@@ -392,7 +392,6 @@ public class Functions implements WindowListener, ActionListener{
                 }
      
      public void transactionPopUp (JFrame main) throws IOException, MalformedURLException, ClassNotFoundException{
-         main.setVisible(false);
          
           Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
          
@@ -413,6 +412,8 @@ public class Functions implements WindowListener, ActionListener{
           availFrame.add(availButton);
           availFrame.setVisible(true);
           
+                   main.setVisible(false);
+                   
           availFrame.addWindowListener(this);
           coinDropList.addActionListener(this);
           availButton.addActionListener(this);
@@ -445,7 +446,7 @@ public class Functions implements WindowListener, ActionListener{
           JScrollPane scrollbar = new JScrollPane(container);
           main.add(scrollbar);
           
-          main.setLocationRelativeTo(frame);
+          main.setLocationRelativeTo(availFrame);
           main.setSize(370,500);
           main.setVisible(true);
      }
