@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
@@ -37,6 +40,7 @@ public class Menu implements ActionListener, FocusListener{
     private JTextField amount1;
     private JTextField amount2;
     private JButton transaction;
+    private JButton avail;
     
     private String coin1 = "ABT";
     private String coin2 = "ABT";
@@ -80,7 +84,7 @@ public class Menu implements ActionListener, FocusListener{
         
         MainFrame = new JFrame ("Crypto Taxes");
         MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        MainFrame.getContentPane().setLayout(new GridLayout(2, 3));
+        MainFrame.getContentPane().setLayout(new GridLayout(3, 3));
         
         coinListBox1 = new JComboBox(coinarray);
         coinListBox2 = new JComboBox(coinarray);
@@ -94,13 +98,18 @@ public class Menu implements ActionListener, FocusListener{
         
         transaction = new JButton("Add Transaction");
         
+        avail = new JButton("Show available coins");
+        
+        
         MainFrame.add(coinListBox1);
         MainFrame.add(newLabel);
         MainFrame.add(coinListBox2);
         MainFrame.add(amount1);
         MainFrame.add(transaction);
         MainFrame.add(amount2);
-        MainFrame.setSize(500, 150);
+        MainFrame.add(new JPanel());
+        MainFrame.add(avail);
+        MainFrame.setSize(500, 200);
         MainFrame.setLocationRelativeTo(null);
         MainFrame.setVisible(true);
         
@@ -109,12 +118,10 @@ public class Menu implements ActionListener, FocusListener{
         amount1.addFocusListener(this);
         amount2.addFocusListener(this);
         transaction.addActionListener(this);
+        avail.addActionListener(this);
         
     }
     
-    public JFrame getFrame(){
-        return MainFrame;
-    }
     
     public void popUp(){
         JFrame doneBox = new JFrame("");
@@ -129,12 +136,12 @@ public class Menu implements ActionListener, FocusListener{
     }
     
     public void popUpErrorNull(){
-        JFrame doneBox = new JFrame("");
-        JLabel doneLabel = new JLabel("Error: Enter a number", JLabel.CENTER);
+        JFrame doneBox = new JFrame("Error");
+        JLabel doneLabel = new JLabel("Enter a number", JLabel.CENTER);
         doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         
         doneBox.add(doneLabel);
-        doneBox.setSize(250, 100);
+        doneBox.setSize(350, 100);
         doneBox.setLocationRelativeTo(MainFrame);
         doneBox.setAlwaysOnTop(true);
         doneBox.setVisible(true);
@@ -142,6 +149,14 @@ public class Menu implements ActionListener, FocusListener{
     
     @Override
     public void actionPerformed(ActionEvent action){
+        Functions Functions = new Functions(MainFrame);
+        if(action.getSource() == avail){
+            try {
+                Functions.transactionPopUp(MainFrame);
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         if (action.getSource() == coinListBox1){
             coin1 = (String)coinListBox1.getSelectedItem();
         }
@@ -163,7 +178,7 @@ public class Menu implements ActionListener, FocusListener{
                     }
                     else if (!coin1.equals("USD") && coin2.equals("USD")){
                         try {
-                            if(Functions.CoinUSD(coin1, coin2, coinamount1, coinamount2, MainFrame) == true){
+                            if(Functions.CoinUSD(coin1, coin2, coinamount1, coinamount2) == true){
                                 popUp();
                             }
                         } catch (IOException | ClassNotFoundException ex) {
@@ -172,7 +187,7 @@ public class Menu implements ActionListener, FocusListener{
                     }
                     else{
                         try {
-                            if(Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2, MainFrame) == true){
+                            if(Functions.CoinCoin(coin1, coin2, coinamount1, coinamount2) == true){
                             popUp();
                             }
                         } catch (IOException | ClassNotFoundException ex) {

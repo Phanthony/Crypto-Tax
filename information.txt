@@ -274,3 +274,38 @@ Transaction: 34
 $20 to 4 C20
 C20: 1.38759
 //
+2018 6 05
+Transaction: 35
+$23 to 33 ICX
+ICX: 2.7125
+//
+2018 6 05
+Transaction: 36
+$23 to 33 ICX
+ICX: 2.7125
+//
+2018 6 05
+Transaction: 37
+$23 to 33 ICX
+ICX: 2.7125
+//
+2018 6 05
+Transaction: 38
+23 BAT to 33 ICX
+BAT: 0.277631
+ICX: 2.7125
+Gain from transaction 2: -0.07263399999999987
+//
+2018 6 05
+Transaction: 39
+23 BAT to $233
+BAT: 0.277631
+Gain from transaction 2: -0.07263399999999987
+//
+2018 6 05
+Transaction: 40
+3 ADA to 3 ABT
+ADA: 0.221268
+ABT: 0.954206
+Gain from transaction 30: -0.0013800000000000479
+//

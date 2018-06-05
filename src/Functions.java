@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +38,16 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
 
-public class Functions{
+import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+public class Functions implements WindowListener, ActionListener{
     
     private static List<String> coinList;
     private static List<String>coinList2;
@@ -47,7 +56,17 @@ public class Functions{
     private static String currentPath;
     private static int transNum;
     
-    public static Map <String, Map<Integer, Map<String, Double>>> connection() throws MalformedURLException, IOException, ClassNotFoundException{
+    private String selectedCoin;
+    private JFrame availFrame;
+    private JButton availButton;
+    private JFrame frame;
+    private JComboBox coinDropList;
+    
+    public Functions(JFrame frame){
+        this.frame = frame;
+    }
+    
+    public Map <String, Map<Integer, Map<String, Double>>> connection() throws MalformedURLException, IOException, ClassNotFoundException{
        String sURL = "https://api.coinmarketcap.com/v2/ticker/?limit=100&structure=array";      
         URL url = new URL(sURL);
         URLConnection request = url.openConnection();
@@ -115,7 +134,7 @@ public class Functions{
         return transaction;
     }
     
-   public static boolean USDCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
+   public boolean USDCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
        Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -174,7 +193,7 @@ public class Functions{
        return true;
                 }
    
-    public static boolean CoinCoin(String coin1, String coin2, String coin1amount, String coin2amount, JFrame frame) throws IOException, MalformedURLException, ClassNotFoundException {
+    public boolean CoinCoin(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
         Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -239,7 +258,7 @@ public class Functions{
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
        if (coinMap == null){
-           popUpErrorOwn(frame);
+           popUpErrorOwn();
            return false;
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
@@ -251,7 +270,7 @@ public class Functions{
        }
        
        if(Double.parseDouble(coin1amount) > totalCoins){
-           popUpErrorOverLimit(frame);
+           popUpErrorOverLimit();
            return false;
        }
        
@@ -290,7 +309,7 @@ public class Functions{
        return true;
                 }
     
-     public static boolean CoinUSD(String coin1, String coin2, String coin1amount, String coin2amount, JFrame frame) throws IOException, MalformedURLException, ClassNotFoundException {
+     public boolean CoinUSD(String coin1, String coin2, String coin1amount, String coin2amount) throws IOException, MalformedURLException, ClassNotFoundException {
        Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
@@ -321,7 +340,7 @@ public class Functions{
        Double coin1amountd = Double.parseDouble(coin1amount);
        Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
        if (coinMap == null){
-           popUpErrorOwn(frame);
+           popUpErrorOwn();
            return false;
        }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
@@ -333,7 +352,7 @@ public class Functions{
        }
        
        if(Double.parseDouble(coin1amount) > totalCoins){
-           popUpErrorOverLimit(frame);
+           popUpErrorOverLimit();
            return false;
        }
        
@@ -372,29 +391,140 @@ public class Functions{
        return true;
                 }
      
-     public static void popUpErrorOwn(JFrame frame){
-        JFrame doneBox = new JFrame("");
-        JLabel doneLabel = new JLabel("Error: You don't own this coin", JLabel.CENTER);
+     public void transactionPopUp (JFrame main) throws IOException, MalformedURLException, ClassNotFoundException{
+         main.setVisible(false);
+         
+          Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
+         
+          availFrame = new JFrame("Available Coins");
+          availFrame.getContentPane().setLayout(new GridLayout(2,1));  
+          
+          ArrayList<String> transCoin = new ArrayList<>(transactions.keySet());
+          Collections.sort(transCoin);
+          transCoin.add(0, "");
+          coinDropList = new JComboBox(transCoin.toArray());
+          AutoCompletion.enable(coinDropList);
+          
+          availButton = new JButton("Show Coin Availability");
+         
+          availFrame.setSize(500,150);
+          availFrame.setLocationRelativeTo(main);
+          availFrame.add(coinDropList);
+          availFrame.add(availButton);
+          availFrame.setVisible(true);
+          
+          availFrame.addWindowListener(this);
+          coinDropList.addActionListener(this);
+          availButton.addActionListener(this);
+     }
+     
+     public void availCoins (String coin) throws IOException, MalformedURLException, ClassNotFoundException{
+          Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
+          ArrayList<Integer> transList = new ArrayList<>(transactions.get(coin).keySet());
+          Collections.sort(transList);
+          
+          Font font = new Font("Times New Roman", Font.BOLD, 20);
+          
+          JFrame main = new JFrame(coin + " available");
+          JPanel container = new JPanel(new GridLayout(0,1));
+          
+          for(int num : transList){
+              JPanel pan = new JPanel(new GridLayout(0,1));
+              JLabel tranNum = new JLabel("Transaction Number: " + num);
+              tranNum.setFont(font);
+              JLabel available = new JLabel("Available: " + transactions.get(coin).get(num).get("available"));
+              available.setFont(font);
+              JLabel price = new JLabel("Price bought at: " + transactions.get(coin).get(num).get("price"));
+              price.setFont(font);
+              pan.add(tranNum);
+              pan.add(price);
+              pan.add(available);
+              pan.add(new JLabel(""));
+              container.add(pan);
+          }
+          JScrollPane scrollbar = new JScrollPane(container);
+          main.add(scrollbar);
+          
+          main.setLocationRelativeTo(frame);
+          main.setSize(300,500);
+          main.setVisible(true);
+     }
+     
+     public void popUpErrorOwn(){
+        JFrame doneBox = new JFrame("Error");
+        JLabel doneLabel = new JLabel("You don't own this coin", JLabel.CENTER);
         doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         
         doneBox.add(doneLabel);
-        doneBox.setSize(300, 100);
+        doneBox.setSize(350, 100);
         doneBox.setLocationRelativeTo(frame);
         doneBox.setAlwaysOnTop(true);
         doneBox.setVisible(true);
     }
      
-     public static void popUpErrorOverLimit(JFrame frame){
-        JFrame doneBox = new JFrame("");
-        JLabel doneLabel = new JLabel("Error: You don't own this much", JLabel.CENTER);
+     public void popUpErrorOverLimit(){
+        JFrame doneBox = new JFrame("Error");
+        JLabel doneLabel = new JLabel("You don't own this much", JLabel.CENTER);
         doneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         
         doneBox.add(doneLabel);
-        doneBox.setSize(300, 100);
+        doneBox.setSize(350, 100);
         doneBox.setLocationRelativeTo(frame);
         doneBox.setAlwaysOnTop(true);
         doneBox.setVisible(true);
      }
+     
+     
+    @Override
+    public void windowOpened(WindowEvent e) {
+       return;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if(e.getSource() == availFrame){
+        frame.setVisible(true);
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+      return;
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+       return;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == availButton){
+            try {
+                availCoins(selectedCoin);
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(Functions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(e.getSource() == coinDropList){
+            selectedCoin = (String)coinDropList.getSelectedItem();
+        }
+    }
      
 }
 
