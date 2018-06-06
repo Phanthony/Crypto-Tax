@@ -131,7 +131,7 @@ public class Functions implements WindowListener, ActionListener{
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
        LocalDate localdate = LocalDate.now();
-       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy LLLL dd");
+       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("d MMM uuuu");
        String date = localdate.format(dateformat);
        output.write(date);
        output.newLine();
@@ -197,10 +197,13 @@ public class Functions implements WindowListener, ActionListener{
        }
        
        LocalDate localdate = LocalDate.now();
-       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy LLLL dd");
+       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("d MMM uuuu");
        String date = localdate.format(dateformat);
        output.write(date);
        output.newLine();
+       
+       String[] dateArray = date.split(" ");
+       
        
        output.write("Transaction: " + transNum);
        output.newLine();
@@ -305,7 +308,7 @@ public class Functions implements WindowListener, ActionListener{
        }
        
        LocalDate localdate = LocalDate.now();
-       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy LLLL dd");
+       DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("d MMM uuuu");
        String date = localdate.format(dateformat);
        output.write(date);
        output.newLine();
