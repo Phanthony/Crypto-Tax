@@ -189,6 +189,13 @@ public class Functions implements WindowListener, ActionListener{
         Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
+       Double coin1amountd = Double.parseDouble(coin1amount);
+       Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
+       if (coinMap == null){
+           popUpErrorOwn();
+           return false;
+       }
+       
        LocalDate localdate = LocalDate.now();
        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy LLLL dd");
        String date = localdate.format(dateformat);
@@ -241,12 +248,6 @@ public class Functions implements WindowListener, ActionListener{
            transactions.get(coin2).put(transNum, placeholderInside);
        }
           
-       Double coin1amountd = Double.parseDouble(coin1amount);
-       Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
-       if (coinMap == null){
-           popUpErrorOwn();
-           return false;
-       }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
        Collections.sort(transactionList);
        
@@ -296,6 +297,13 @@ public class Functions implements WindowListener, ActionListener{
        Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
        BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true));
        
+       Double coin1amountd = Double.parseDouble(coin1amount);
+       Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
+       if (coinMap == null){
+           popUpErrorOwn();
+           return false;
+       }
+       
        LocalDate localdate = LocalDate.now();
        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyy LLLL dd");
        String date = localdate.format(dateformat);
@@ -320,12 +328,6 @@ public class Functions implements WindowListener, ActionListener{
            output.newLine();
        }
        
-       Double coin1amountd = Double.parseDouble(coin1amount);
-       Map<Integer, Map<String, Double>> coinMap = transactions.get(coin1);
-       if (coinMap == null){
-           popUpErrorOwn();
-           return false;
-       }
        ArrayList<Integer> transactionList = new ArrayList<>(coinMap.keySet());
        Collections.sort(transactionList);
        
