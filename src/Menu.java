@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -152,7 +150,7 @@ public class Menu implements ActionListener, FocusListener{
         Functions Functions = new Functions(MainFrame);
         if(action.getSource() == avail){
             try {
-                Functions.transactionPopUp(MainFrame);
+                Functions.transactionPopUp();
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }

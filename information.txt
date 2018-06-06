@@ -371,3 +371,11 @@ Price of BTC : $7536.71
 Price of SALT : $1.9175
 Gain from transaction 6: 0.0
 //
+2018 6 06
+Transaction: 9
+98 BAT to 098 AMB
+Price of BAT : $0.266828
+Price of AMB : $0.401607
+Gain from transaction 1: -0.009680000000000355
+Gain from transaction 5: -0.005243999999997584
+//

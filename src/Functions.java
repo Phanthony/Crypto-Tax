@@ -371,7 +371,7 @@ public class Functions implements WindowListener, ActionListener{
        return true;
                 }
      
-     public void transactionPopUp (JFrame main) throws IOException, MalformedURLException, ClassNotFoundException{
+     public void transactionPopUp () throws IOException, MalformedURLException, ClassNotFoundException{
          
           Map <String, Map<Integer, Map<String, Double>>> transactions = connection();
          
@@ -383,7 +383,7 @@ public class Functions implements WindowListener, ActionListener{
               JLabel errorL = new JLabel("You don't have any coins", JLabel.CENTER);
               errorL.setFont(new Font("Times New Roman", Font.BOLD, 20));
               error.add(errorL);
-              error.setLocationRelativeTo(main);
+              error.setLocationRelativeTo(frame);
               error.setAlwaysOnTop(true);
               error.setSize(350, 100);
               error.setVisible(true);
@@ -399,12 +399,12 @@ public class Functions implements WindowListener, ActionListener{
           availButton = new JButton("Show Coin Availability");
          
           availFrame.setSize(500,150);
-          availFrame.setLocationRelativeTo(main);
+          availFrame.setLocationRelativeTo(frame);
           availFrame.add(coinDropList);
           availFrame.add(availButton);
           availFrame.setVisible(true);
           
-                   main.setVisible(false);
+                   frame.setVisible(false);
                    
           availFrame.addWindowListener(this);
           coinDropList.addActionListener(this);
