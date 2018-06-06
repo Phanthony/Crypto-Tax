@@ -314,3 +314,60 @@ Transaction: 41
 $23 to 23 ABT
 ABT: 0.953453
 //
+2018 6 06
+Transaction: 42
+$33 to 23 ABT
+ABT: 0.910136
+//
+2018 6 06
+Transaction: 0
+$3 to 23 BAT
+BAT: 0.267268
+//
+2018 6 06
+Transaction: 1
+$3 to 234 BAT
+BAT: 0.267268
+//
+2018 6 06
+Transaction: 2
+2 BAT to 2 ABT
+BAT: 0.267132
+ABT: 0.913038
+Gain from transaction 0: -2.7200000000005E-4
+//
+2018 6 06
+Transaction: 3
+$2 to 2 ABT
+ABT: 0.913038
+//
+2018 6 06
+Transaction: 4
+$2 to 2 BLZ
+BLZ: 0.428123
+//
+2018 6 06
+Transaction: 5
+$3 to 3233 BAT
+Price of BAT : $0.266897
+//
+2018 6 06
+Transaction: 6
+233 BAT to 333233 BTC
+Price of BAT : $0.266897
+Price of BTC : $0.266897
+Gain from transaction 0: -0.007791000000000103
+Gain from transaction 1: -0.07865200000000527
+//
+2018 6 06
+Transaction: 7
+$23 to 33 SALT
+Price of SALT : $1.9175
+//
+2018 6 06
+Transaction: 8
+23 BTC to 33 SALT
+Price of BTC : $7536.71
+Price of SALT : $1.9175
+Gain from transaction 6: 0.0
+//

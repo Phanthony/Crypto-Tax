@@ -109,28 +109,20 @@ public class Functions implements WindowListener, ActionListener{
             output.close();
         }
         
-        String transactionPath = file.getAbsolutePath() + "\\transaction";
+        String transactionPath = file.getAbsolutePath() + "\\Transaction.data";
         File transactionsFile = new File(transactionPath);
         if (!transactionsFile.exists()){
             ObjectOutputStream tranWriter = new ObjectOutputStream(new FileOutputStream(transactionPath) );
             Map <String, Map<Integer, Map<String, Double>>> transactions = new HashMap<>();
             tranWriter.writeObject(transactions);
+            tranWriter.writeInt(1);
             tranWriter.close();
         }
         ObjectInputStream tranOpen = new ObjectInputStream(new FileInputStream(transactionPath));
         Map <String, Map<Integer, Map<String, Double>>> transaction = (Map <String, Map<Integer, Map<String, Double>>>) tranOpen.readObject();
+        transNum = tranOpen.readInt();
         tranOpen.close();
         
-        String transactionNumPath = file.getAbsolutePath() + "\\TransactionNumber";
-        File transactionNumFile = new File(transactionNumPath);
-        if(!transactionNumFile.exists()){
-            ObjectOutputStream numWriter = new ObjectOutputStream(new FileOutputStream(transactionNumFile));
-            numWriter.writeInt(0);
-            numWriter.close();
-        }
-            ObjectInputStream numOpen = new ObjectInputStream(new FileInputStream(transactionNumFile));
-            transNum = numOpen.readInt();
-            numOpen.close();
         return transaction;
     }
     
@@ -151,14 +143,15 @@ public class Functions implements WindowListener, ActionListener{
        output.newLine();
        
        Double coinprice;
+       
        if(coinList.contains(coin2)){
            coinprice = (coin100.get(coinList.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin2 + ": " + coinprice );
+           output.write("Price of " + coin2 + " : $" + coinprice );
            output.newLine();
        }
        else{
            coinprice = (coin200.get(coinList2.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin2 + ": " + coinprice );
+           output.write("Price of " + coin2 + " : $" + coinprice );
            output.newLine();
        }
        
@@ -173,8 +166,9 @@ public class Functions implements WindowListener, ActionListener{
            placeholderInside.put("available", Double.parseDouble(coin2amount));
            placeholderOutside.put(transNum, placeholderInside);
            transactions.put(coin2, placeholderOutside);
-           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
+           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("Transaction.data"));
            tranWrite.writeObject(transactions);
+           tranWrite.writeInt(transNum+1);
            tranWrite.close();
        }
        else{
@@ -182,14 +176,12 @@ public class Functions implements WindowListener, ActionListener{
            placeholderInside.put("price", coinprice);
            placeholderInside.put("available", Double.parseDouble(coin2amount));
            transactions.get(coin2).put(transNum, placeholderInside);
-           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
+           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("Transaction.data"));
            tranWrite.writeObject(transactions);
+           tranWrite.writeInt(transNum+1);
            tranWrite.close();
        }
        
-       ObjectOutputStream numWriter = new ObjectOutputStream(new FileOutputStream("TransactionNumber"));
-       numWriter.writeInt(transNum+1);
-       numWriter.close();
        return true;
                 }
    
@@ -214,23 +206,23 @@ public class Functions implements WindowListener, ActionListener{
        
        if(coinList.contains(coin1)){
            coinprice = (coin100.get(coinList.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin1 + ": " + coinprice );
+           output.write("Price of " + coin1 + " : $" + coinprice );
            output.newLine();
        }
        else{
            coinprice = (coin200.get(coinList2.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin1 + ": " + coinprice );
+           output.write("Price of " + coin1 + " : $" + coinprice );
            output.newLine();
        }
        
        if(coinList.contains(coin2)){
            coin2price = (coin100.get(coinList.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin2 + ": " + coin2price );
+           output.write("Price of " + coin2 + " : $" + coin2price );
            output.newLine();
        }
        else{
            coin2price = (coin200.get(coinList2.indexOf(coin2)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin2 + ": " + coin2price );
+           output.write("Price of " + coin2 + " : $" + coin2price );
            output.newLine();
        }
        
@@ -241,18 +233,12 @@ public class Functions implements WindowListener, ActionListener{
            placeholderInside.put("available", Double.parseDouble(coin2amount));
            placeholderOutside.put(transNum, placeholderInside);
            transactions.put(coin2, placeholderOutside);
-           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
-           tranWrite.writeObject(transactions);
-           tranWrite.close();
        }
        else{
            Map<String, Double> placeholderInside = new HashMap<>();
            placeholderInside.put("price", coin2price);
            placeholderInside.put("available", Double.parseDouble(coin2amount));
            transactions.get(coin2).put(transNum, placeholderInside);
-           ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
-           tranWrite.writeObject(transactions);
-           tranWrite.close();
        }
           
        Double coin1amountd = Double.parseDouble(coin1amount);
@@ -299,12 +285,9 @@ public class Functions implements WindowListener, ActionListener{
        output.newLine();
        output.close();
        
-       ObjectOutputStream numWriter = new ObjectOutputStream(new FileOutputStream("TransactionNumber"));
-       numWriter.writeInt(transNum+1);
-       numWriter.close();
-       
-       ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
+       ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("Transaction.data"));
        tranWrite.writeObject(transactions);
+       tranWrite.writeInt(transNum+1);
        tranWrite.close();
        return true;
                 }
@@ -328,12 +311,12 @@ public class Functions implements WindowListener, ActionListener{
        Double coinprice;
        if(coinList.contains(coin1)){
            coinprice = (coin100.get(coinList.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin1 + ": " + coinprice );
+           output.write("Price of " + coin1 + " : $" + coinprice );
            output.newLine();
        }
        else{
            coinprice = (coin200.get(coinList2.indexOf(coin1)).getAsJsonObject().get("quotes").getAsJsonObject().get("USD").getAsJsonObject().get("price")).getAsDouble();
-           output.write(coin1 + ": " + coinprice );
+           output.write("Price of " + coin1 + ": $" + coinprice );
            output.newLine();
        }
        
@@ -381,12 +364,9 @@ public class Functions implements WindowListener, ActionListener{
        output.newLine();
        output.close();
        
-       ObjectOutputStream numWriter = new ObjectOutputStream(new FileOutputStream("TransactionNumber"));
-       numWriter.writeInt(transNum+1);
-       numWriter.close();
-       
-       ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("transaction"));
+       ObjectOutputStream tranWrite = new ObjectOutputStream(new FileOutputStream("Transaction.data"));
        tranWrite.writeObject(transactions);
+       tranWrite.writeInt(transNum+1);
        tranWrite.close();
        return true;
                 }
