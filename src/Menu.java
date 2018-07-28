@@ -163,8 +163,11 @@ public class Menu implements ActionListener, FocusListener{
         }
 
         if (action.getSource() == transaction){
+       
             if ((coinamount1 !=  null ) && (coinamount2 != null)){
                 if(!coinamount1.isEmpty() && !coinamount2.isEmpty()){
+                    coinamount1 = coinamount1.replaceAll("[!@,#$]", "");
+                    coinamount2 = coinamount2.replaceAll("[!@,#$]", "");
                     if (coin1.equals("USD") && !coin2.equals("USD")){
                         try {
                             if(Functions.USDCoin(coin1, coin2, coinamount1, coinamount2) == true){

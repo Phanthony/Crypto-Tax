@@ -4,3 +4,8 @@ Transaction: 1
 $333 to 23 ABT
 Price of ABT : $0.912062
 //
+27 Jul 2018
+Transaction: 2
+$300000000 to 341 BTC
+Price of BTC : $8174.56
+//
